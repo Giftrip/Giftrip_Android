@@ -12,6 +12,14 @@ import com.flash21.giftrip_android.databinding.FragmentGiftBinding
 import com.flash21.giftrip_android.viewmodel.GiftFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.GiftFragmentViewModelFactory
 
+/*
+*
+* 담당자 : 이용재
+* 생성일자 : 2021.05.13.
+* 최근 수정일: 2021.05.13.
+*
+* */
+
 class GiftFragment : Fragment(){
 
     private lateinit var dataBinding : FragmentGiftBinding

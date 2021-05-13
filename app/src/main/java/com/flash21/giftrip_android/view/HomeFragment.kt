@@ -14,12 +14,21 @@ import com.flash21.giftrip_android.databinding.FragmentHomeBinding
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
 
+/*
+
+* 담당자 : 한승재
+* 생성일자 : 2021.05.13.
+* 최근 수정일: 2021.05.13.
+*
+* */
+
 class HomeFragment : Fragment(){
 
-    private lateinit var dataBinding : FragmentHomeBinding
-    private lateinit var viewModel : HomeFragmentViewModel
-    private lateinit var viewModelFactory : HomeFragmentViewModelFactory
+    private lateinit var dataBinding : FragmentHomeBinding //HomeFragment DataBinding 객체
+    private lateinit var viewModel : HomeFragmentViewModel //HomeFragment viewModel 객체
+    private lateinit var viewModelFactory : HomeFragmentViewModelFactory //HomeFragment viewModel Factory 객체
 
+    //onCreateView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,9 +39,7 @@ class HomeFragment : Fragment(){
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
 
         dataBinding.apply {
-            nfcText.setOnClickListener {
 
-            }
         }
 
         return dataBinding.root

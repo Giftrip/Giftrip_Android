@@ -12,6 +12,14 @@ import com.flash21.giftrip_android.databinding.FragmentFinisherBinding
 import com.flash21.giftrip_android.viewmodel.FinisherFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.FinisherFragmentViewModelFactory
 
+/*
+*
+* 담당자 : 이용재
+* 생성일자 : 2021.05.13.
+* 최근 수정일: 2021.05.13.
+*
+* */
+
 class FinisherFragment : Fragment(){
 
     private lateinit var dataBinding : FragmentFinisherBinding

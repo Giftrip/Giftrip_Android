@@ -12,6 +12,14 @@ import com.flash21.giftrip_android.viewmodel.MainActivityViewModel
 import com.flash21.giftrip_android.viewmodel_factory.MainActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+/*
+*
+* 담당자 : 한승재, 양준혁, 이용재
+* 생성일자 : 2021.05.13.
+* 최근 수정일: 2021.05.13.
+*
+* */
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var dataBinding : ActivityMainBinding

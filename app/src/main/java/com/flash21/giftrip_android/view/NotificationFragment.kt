@@ -1,5 +1,4 @@
 package com.flash21.giftrip_android.view
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +10,14 @@ import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentNotificationBinding
 import com.flash21.giftrip_android.viewmodel.NotificationFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.NotificationFragmentViewModelFactory
+
+/*
+*
+* 담당자 : 한승재
+* 생성일자 : 2021.05.13.
+* 최근 수정일: 2021.05.13.
+*
+* */
 
 class NotificationFragment : Fragment(){
 

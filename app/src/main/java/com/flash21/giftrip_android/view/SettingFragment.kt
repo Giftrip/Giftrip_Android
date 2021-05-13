@@ -12,6 +12,14 @@ import com.flash21.giftrip_android.databinding.FragmentSettingBinding
 import com.flash21.giftrip_android.viewmodel.SettingFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.SettingFragmentViewModelFactory
 
+/*
+*
+* 담당자 : 양준혁
+* 생성일자 : 2021.05.13.
+* 최근 수정일: 2021.05.13.
+*
+* */
+
 class SettingFragment : Fragment(){
 
     private lateinit var dataBinding : FragmentSettingBinding
