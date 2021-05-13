@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">GiftripAndroid</string>
+    <string name="app_name">Giftrip</string>
+    <string name="home">홈</string>
+    <string name="finisher">완주자</string>
+    <string name="present">경품</string>
+    <string name="notification">알림</string>
+    <string name="setting">설정</string>
+    <string name="nfc_text">nfc 인식</string>
 </resources>

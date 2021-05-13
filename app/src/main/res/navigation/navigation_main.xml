@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.flash21.giftrip_android.view.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_finisher"
+            app:destination="@id/navigation_finisher" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_finisher"
+        android:name="com.flash21.giftrip_android.view.FinisherFragment"
+        android:label="FinisherFragment" >
+        <action
+            android:id="@+id/action_navigation_finisher_to_navigation_gift"
+            app:destination="@id/navigation_gift" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_gift"
+        android:name="com.flash21.giftrip_android.view.GiftFragment"
+        android:label="GiftFragment" >
+        <action
+            android:id="@+id/action_navigation_gift_to_navigation_notification"
+            app:destination="@id/navigation_notification" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.flash21.giftrip_android.view.NotificationFragment"
+        android:label="NotificationFragment" >
+        <action
+            android:id="@+id/action_navigation_notification_to_navigation_setting"
+            app:destination="@id/navigation_setting" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="com.flash21.giftrip_android.view.SettingFragment"
+        android:label="SettingFragment" />
+
+</navigation>

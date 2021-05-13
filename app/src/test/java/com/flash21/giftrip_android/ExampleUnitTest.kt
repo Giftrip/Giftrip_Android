@@ -1,4 +1,4 @@
-package com.example.giftrip_android
+package com.flash21.giftrip_android
 
 import org.junit.Test
 
