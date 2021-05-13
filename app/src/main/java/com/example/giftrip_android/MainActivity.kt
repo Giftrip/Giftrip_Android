@@ -1,4 +1,4 @@
-package com.example.giftripandroid
+package com.example.giftrip_android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
