@@ -42,11 +42,13 @@
             android:gravity="center">
 
             <EditText
+                android:id="@+id/et_phonenumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@null"
+                android:inputType="number"
                 android:hint="전화번호"
                 android:paddingLeft="8dp"
                 android:textSize="16dp" />
@@ -63,6 +65,7 @@
             android:gravity="center">
 
             <EditText
+                android:id="@+id/et_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -79,6 +82,7 @@
             android:layout_height="0dp"
             android:layout_weight="1">
         <Button
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
