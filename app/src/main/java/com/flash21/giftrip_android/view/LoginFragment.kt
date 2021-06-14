@@ -61,8 +61,7 @@ class LoginFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                    Toast.makeText(activity, t.toString(), Toast.LENGTH_SHORT).show()
-                    Log.d("ㅎㅇㅎㅇ",t.toString())
+                    Log.e("retrofit error",t.toString())
                 }
 
             })
