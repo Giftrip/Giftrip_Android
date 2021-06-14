@@ -1,7 +1,5 @@
 package com.flash21.giftrip_android.view
 
-import android.content.Intent
-import android.nfc.NfcAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +11,7 @@ import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 /*
 
@@ -35,6 +34,7 @@ class HomeFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View {
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+
         viewModelFactory = HomeFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
 
