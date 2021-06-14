@@ -12,14 +12,13 @@ import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
-import com.google.android.gms.maps.CameraUpdateFactory
+
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
 
 
 /*
-
 * 담당자 : 한승재
 * 생성일자 : 2021.05.13.
 * 최근 수정일: 2021.05.13.
@@ -48,7 +47,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
         dataBinding.apply {
-
+//recyclerview touch helper 구현 필요
         }
 
         return dataBinding.root
@@ -83,8 +82,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
     }
 
     override fun onDestroy() {
-        mapView.onDestroy()
         super.onDestroy()
+        mapView.onDestroy()
     }
 
 }
