@@ -1,4 +1,4 @@
-package com.flash21.giftrip_android.model
+package com.flash21.giftrip_android.model.logindata
 
 data class LoginRequest(
     val phoneNumber: String,
