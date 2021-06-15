@@ -63,7 +63,6 @@ class LoginFragment : Fragment() {
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                     Log.e("retrofit error",t.toString())
                 }
-
             })
         }
 
