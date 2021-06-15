@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_auth"
+    app:startDestination="@id/navigation_auth_select">
+
+    <fragment
+        android:id="@+id/navigation_auth_select"
+        android:name="com.flash21.giftrip_android.view.AuthSelectFragment"
+        android:label="AuthSelectFragment" >
+        <action
+            android:id="@+id/action_navigation_auth_select_to_navigation_login"
+            app:destination="@id/navigation_login" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_login"
+        android:name="com.flash21.giftrip_android.view.LoginFragment"
+        android:label="LoginFragment" >
+    </fragment>
+
+</navigation>

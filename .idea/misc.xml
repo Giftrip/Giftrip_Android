@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/drawable/button_auth.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/drawable/shape_edittext.xml" value="0.38229166666666664" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/activity_auth.xml" value="0.30117753623188404" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/activity_main.xml" value="0.29257246376811596" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/dialog_nfc.xml" value="0.2046875" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/fragment_auth_select.xml" value="0.30117753623188404" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/fragment_finisher.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/fragment_gift.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/fragment_login.xml" value="0.2271174863387978" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/layout/fragment_notification.xml" value="0.12804054054054054" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/menu/bottom_nav_menu.xml" value="0.2046875" />
+        <entry key="..\:/Users/YONGJAE/Documents/GitHub/Giftrip_Android/app/src/main/res/xml/network_security_config.xml" value="0.13277027027027027" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
