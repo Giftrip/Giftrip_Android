@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentLoginBinding
+import com.flash21.giftrip_android.encrypt.EncryptString
 import com.flash21.giftrip_android.model.LoginRequest
 import com.flash21.giftrip_android.model.LoginResponse
 import com.flash21.giftrip_android.network.RetrofitClient
@@ -23,7 +24,7 @@ import retrofit2.Response
 /*
 * 담당자 : 이용재
 * 생성일자 : 2021.06.11.
-* 최근 수정일: 2021.06.13.
+* 최근 수정일: 2021.06.15.
 *
 * */
 
@@ -47,7 +48,7 @@ class LoginFragment : Fragment() {
         dataBinding.btnLogin.setOnClickListener() {
             val call: Call<LoginResponse> = RetrofitClient.instance.postAuth.login(
                 LoginRequest(
-                    dataBinding.etPhonenumber.text.toString(),
+                    EncryptString().hashSHA256(dataBinding.etPhonenumber.text.toString())!!,
                     dataBinding.etPw.text.toString()
                 )
             )
