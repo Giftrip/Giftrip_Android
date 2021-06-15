@@ -7,14 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentLoginBinding
 import com.flash21.giftrip_android.encrypt.EncryptString
-import com.flash21.giftrip_android.model.LoginRequest
-import com.flash21.giftrip_android.model.LoginResponse
+import com.flash21.giftrip_android.model.logindata.LoginRequest
+import com.flash21.giftrip_android.model.logindata.LoginResponse
 import com.flash21.giftrip_android.network.RetrofitClient
 import com.flash21.giftrip_android.viewmodel.LoginFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.LoginFragmentViewModelFactory
