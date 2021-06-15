@@ -38,7 +38,13 @@ class HomeFragment : Fragment(){
         viewModelFactory = HomeFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
 
+        val nfcDialog = NfcDialogFragment()
+
         dataBinding.apply {
+
+            nfcText.setOnClickListener {
+                nfcDialog.show(parentFragmentManager, "nfcDialog")
+            }
 
         }
 
