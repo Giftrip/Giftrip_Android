@@ -8,8 +8,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
+import com.flash21.giftrip_android.model.BottomSheetAdapter
+
 import com.flash21.giftrip_android.network.RetrofitClient
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
@@ -34,6 +37,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
     private lateinit var viewModelFactory : HomeFragmentViewModelFactory //HomeFragment viewModel Factory 객체
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
+   // private var bottomSheetAdapter = BottomSheetAdapter(requireContext())
+
     //onCreateView
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,7 +50,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
         dataBinding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModelFactory = HomeFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
-        viewModel.getCourseList()
+        viewModel.getSpotList()
+   //     dataBinding.bottomSheetLayout.bottomSheetRecyclerView.adapter = bottomSheetAdapter
         mapView = dataBinding.map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
@@ -54,6 +60,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
         }
 
         return dataBinding.root
+    }
+    fun observeViewModel(){
+        with(viewModel){
+
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {

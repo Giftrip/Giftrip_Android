@@ -1,7 +1,6 @@
 package com.flash21.giftrip_android.model
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.flash21.giftrip_android.R
-import com.flash21.giftrip_android.model.coursesList.Content
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.flash21.giftrip_android.model.spotList.SpotContent
+import com.flash21.giftrip_android.model.spotList.SpotList
 
-class BottomSheetAdapter(private val context: Context, private val SpotList: List<Content>) :
+class BottomSheetAdapter(private val context: Context) :
     RecyclerView.Adapter<BottomSheetAdapter.Holder>() {
-
+    val SpotList = ArrayList<SpotContent>()
     override fun getItemCount(): Int {
         return SpotList.size
     }
@@ -29,7 +26,7 @@ class BottomSheetAdapter(private val context: Context, private val SpotList: Lis
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
-//        holder.bind(SpotList[position], position)
+        holder.bind(SpotList[position], position)
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
@@ -40,9 +37,9 @@ class BottomSheetAdapter(private val context: Context, private val SpotList: Lis
         private val spotDescription = itemView?.findViewById<TextView>(R.id.item_description)
         private val layout = itemView?.findViewById<LinearLayout>(R.id.item_layout)
 
-//        fun bind(notepad: NotePadEntity, position: Int) {
-
-//        }
+        fun bind(courseList:SpotContent , position: Int) {
+                spotTitle!!.text = courseList.title
+        }
 
 
     }
