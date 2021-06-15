@@ -10,12 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
+import com.flash21.giftrip_android.network.RetrofitClient
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
 
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.OnMapReadyCallback
+import retrofit2.Retrofit
 
 
 /*
@@ -43,6 +45,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
         dataBinding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModelFactory = HomeFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
+        viewModel.getCourseList()
         mapView = dataBinding.map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
