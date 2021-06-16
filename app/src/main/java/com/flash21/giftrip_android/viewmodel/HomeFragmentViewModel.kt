@@ -9,22 +9,23 @@ import com.flash21.giftrip_android.network.RetrofitClient
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 
-class HomeFragmentViewModel : ViewModel() {
+class  HomeFragmentViewModel : ViewModel() {
     private lateinit var retrofit: Retrofit
     private lateinit var courseListService : SpotListService
     var data = MutableLiveData<SpotList>()
-    private val token : String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZHgiOjEsImF1dGhUeXBlIjoiQUNDRVNTIiwiZXhwIjoxNjIzNzQzMzkyfQ.0ear5ZCbCWalR4tleX0CusxkklLKBh8kQf8JCJ3l4Gg4cltYWIJhm9S1HgXrhnj7"
+    private val token : String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZHgiOjEsImF1dGhUeXBlIjoiQUNDRVNTIiwiZXhwIjoxNjIzODEyMzcyfQ.Rj3K_NqqSbv7oJ1a1Bh9X5aCrbFEPvu66EqY8_U8WmyKsSJniDY31B4BhRGDvYl0"
     fun getSpotList(){
         retrofit = RetrofitClient.instance.retrofitBuild
         courseListService = RetrofitClient.instance.courseList
         CoroutineScope(Dispatchers.IO).launch {
             val response = courseListService.gerCourseList("Bearer $token")
             if (response.isSuccessful){
-                response.body().let {
-                    Log.d("Response","Response : ${response.body()}")
-                //    data.value = response.body()
+                withContext(Dispatchers.Main){
+                    data.value = response.body()
+                    Log.d("Response","Response : ${data.value}")
                 }
             }else{
                 Log.d("ResponseError","ResponseError : ${response.code()}")

@@ -2,16 +2,21 @@ package com.flash21.giftrip_android.view
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
 import com.flash21.giftrip_android.model.BottomSheetAdapter
+import com.flash21.giftrip_android.model.spotList.SpotContent
+import com.flash21.giftrip_android.model.spotList.SpotList
 
 import com.flash21.giftrip_android.network.RetrofitClient
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
@@ -37,7 +42,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
     private lateinit var viewModelFactory : HomeFragmentViewModelFactory //HomeFragment viewModel Factory 객체
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
-   // private var bottomSheetAdapter = BottomSheetAdapter(requireContext())
+
 
     //onCreateView
     override fun onCreateView(
@@ -45,13 +50,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val bottomSheetAdapter = BottomSheetAdapter(requireContext())
 
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         dataBinding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModelFactory = HomeFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
         viewModel.getSpotList()
-   //     dataBinding.bottomSheetLayout.bottomSheetRecyclerView.adapter = bottomSheetAdapter
+        bottomSheetAdapter.notifyDataSetChanged()
+        dataBinding.bottomSheetLayout.bottomSheetRecyclerView.adapter = bottomSheetAdapter
+        val lm = LinearLayoutManager(requireContext())
+        dataBinding.bottomSheetLayout.bottomSheetRecyclerView.layoutManager = lm
+        dataBinding.bottomSheetLayout.bottomSheetRecyclerView.setHasFixedSize(true)
+        observeViewModel(bottomSheetAdapter)
         mapView = dataBinding.map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
@@ -61,10 +72,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
 
         return dataBinding.root
     }
-    fun observeViewModel(){
-        with(viewModel){
-
-        }
+    private fun observeViewModel(bottomSheetAdapter: BottomSheetAdapter){
+        viewModel.data.observe(viewLifecycleOwner, Observer {
+            Log.d("Response data","Response data : $it")
+            bottomSheetAdapter.addItem(it)
+        })
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
