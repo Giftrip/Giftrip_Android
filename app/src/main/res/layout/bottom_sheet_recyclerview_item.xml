@@ -8,8 +8,9 @@
     <LinearLayout
         android:id="@+id/item_layout"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,7 +23,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="대구의 민주화 운동이다"
                 android:textSize="10sp"
-                android:padding="5dp"/>
+                android:padding="1dp"/>
 
             <TextView
                 android:id="@+id/item_address"
@@ -49,7 +50,7 @@
                 android:textSize="10dp"
                 android:layout_gravity="bottom"
                 android:gravity="bottom"
-                android:padding="3dp"/>
+                android:padding="1dp"/>
         </LinearLayout>
 
     </LinearLayout>
