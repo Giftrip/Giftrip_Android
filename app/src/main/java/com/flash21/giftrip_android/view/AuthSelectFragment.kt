@@ -31,6 +31,9 @@ class AuthSelectFragment : Fragment() {
         dataBinding.btnLogin.setOnClickListener {
             it.findNavController().navigate(R.id.action_navigation_auth_select_to_navigation_login)
         }
+        dataBinding.btnRegister.setOnClickListener {
+            it.findNavController().navigate(R.id.action_navigation_auth_select_to_navigation_get_phoneNumber)
+        }
         return dataBinding.root
     }
 

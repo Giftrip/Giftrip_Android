@@ -22,7 +22,7 @@ class RegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_get_phonenumber, container, false)
+        dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_register, container, false)
         viewModelFactory = RegisterFragmentViewModelFactory()
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(RegisterFragmentViewModel::class.java)

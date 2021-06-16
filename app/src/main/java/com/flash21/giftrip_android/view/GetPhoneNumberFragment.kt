@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentGetPhonenumberBinding
 import com.flash21.giftrip_android.viewmodel.GetPhoneNumberFragmentViewModel
@@ -25,6 +26,10 @@ class GetPhoneNumberFragment : Fragment(){
         viewModelFactory = GetPhoneNumberFragmentViewModelFactory()
         viewModel =
             ViewModelProvider(this, viewModelFactory).get(GetPhoneNumberFragmentViewModel::class.java)
+
+        dataBinding.btnNext.setOnClickListener {
+            it.findNavController().navigate(R.id.action_navigation_get_phoneNumber_to_navigation_register)
+        }
 
         return dataBinding.root
     }
