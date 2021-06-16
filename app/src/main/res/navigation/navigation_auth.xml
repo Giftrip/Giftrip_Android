@@ -35,6 +35,12 @@
         android:id="@+id/navigation_register"
         android:name="com.flash21.giftrip_android.view.RegisterFragment"
         android:label="RegisterFragment" >
+
+        <argument
+            android:name="phoneNumber"
+            app:argType="string"
+            app:nullable="false"
+            android:defaultValue="Empty" />
     </fragment>
 
 </navigation>

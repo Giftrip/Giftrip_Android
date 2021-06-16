@@ -43,23 +43,23 @@
                 android:layout_marginEnd="8dp"
                 android:background="@null"
                 android:hint="이름"
-                android:inputType="number"
                 android:paddingLeft="8dp"
                 android:textSize="16dp" />
 
         </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/et_birth"
+                android:id="@+id/btn_birth"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/shape_edittext"
-                android:paddingLeft="8dp"
+                android:paddingLeft="16dp"
                 android:hint="생년월일"
                 android:textAlignment="textStart"
+                android:textStyle="normal"
                 android:textSize="16dp" />
 
 
@@ -79,8 +79,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@null"
+                android:inputType="textPassword"
                 android:hint="비밀번호"
-                android:inputType="number"
                 android:paddingLeft="8dp"
                 android:textSize="16dp" />
 
@@ -102,8 +102,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:background="@null"
+                android:inputType="textPassword"
                 android:hint="비밀번호 확인"
-                android:inputType="number"
                 android:paddingLeft="8dp"
                 android:textSize="16dp" />
 
