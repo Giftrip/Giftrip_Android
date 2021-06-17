@@ -16,7 +16,7 @@ class  HomeFragmentViewModel : ViewModel() {
     private lateinit var retrofit: Retrofit
     private lateinit var courseListService : SpotListService
     var data = MutableLiveData<SpotList>()
-    private val token : String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZHgiOjEsImF1dGhUeXBlIjoiQUNDRVNTIiwiZXhwIjoxNjIzOTEzNjUyfQ.eoVh-R6bWiLyi4BshPWwkIUmYoEbhRiyXBaErlq-cXv5s5Momv2m0AgHo0I5Tw-6"
+    private val token : String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZHgiOjEsImF1dGhUeXBlIjoiQUNDRVNTIiwiZXhwIjoxNjIzOTE2MzA0fQ.66XdIrx8-cE7AfBEJDRBYBeYPJFbgao3qG2FcEAsC8nuDQVlnD6-lt1QrthGNlsG"
     fun getSpotList(){
         retrofit = RetrofitClient.instance.retrofitBuild
         courseListService = RetrofitClient.instance.courseList

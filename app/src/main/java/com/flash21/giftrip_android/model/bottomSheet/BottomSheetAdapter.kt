@@ -17,7 +17,7 @@ import com.flash21.giftrip_android.model.spotList.SpotList
 
 class BottomSheetAdapter(private val context: Context) :
     RecyclerView.Adapter<BottomSheetAdapter.Holder>() {
-    private val spotList = ArrayList<SpotContent>()
+    val spotList = ArrayList<SpotContent>()
     override fun getItemCount(): Int {
         return spotList.size
     }

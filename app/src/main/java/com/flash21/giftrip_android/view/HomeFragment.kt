@@ -44,7 +44,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
 
 
     private val markers = ArrayList<MarkerOptions>()
-
+    private val cMarkers = ArrayList<MarkerOptions>()
     //onCreateView
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,9 +84,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
             Log.d("Response data", "Response data : $it")
             bottomSheetAdapter.addItem(it)
             it.content.forEach { content ->
-//                markers.add(MarkerOptions().apply {
-//                    position(LatLng(content.lat, content.lon))
-//                })
+                markers.add(MarkerOptions().apply {
+                    position(LatLng(content.lat, content.lon))
+                })
             }
         })
     }
@@ -96,7 +96,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
         val latLng = LatLng(35.8489063202337, 128.55784713500177)
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7f))
         markers.forEach { marker ->
-        //    map.addMarker(marker)
+            map.addMarker(marker)
+        }
+        cMarkers.forEach { marker ->
+            map.addMarker(marker)
         }
     }
 
@@ -131,7 +134,8 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
     }
 
     override fun swipeMap(position: Int, bottomSheetAdapter: BottomSheetAdapter) {
-     //   Log.d("postion","${position.}")
+        Log.d("position","${bottomSheetAdapter.spotList[position]}")
+
        // bottomSheetAdapter.getItemId(position)
     }
 
