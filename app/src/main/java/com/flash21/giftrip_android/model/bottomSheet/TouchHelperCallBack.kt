@@ -1,10 +1,18 @@
 package com.flash21.giftrip_android.model.bottomSheet
 
+import android.content.Context
+import android.util.Log
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-class TouchHelperCallBack : ItemTouchHelper.Callback() {
+import com.flash21.giftrip_android.view.SwipeCallBack
+import com.google.android.gms.maps.OnMapReadyCallback
+import java.security.Provider
 
+class TouchHelperCallBack(Swipe : SwipeCallBack, bottomSheetAdapter: BottomSheetAdapter) : ItemTouchHelper.Callback() {
+    private val swipeCallBack = Swipe
+    private val bottomSheetAdapter = bottomSheetAdapter
     override fun getMovementFlags(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
@@ -22,10 +30,12 @@ class TouchHelperCallBack : ItemTouchHelper.Callback() {
 
     }
     override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
-        return defaultValue * 10
+
+        return defaultValue * 100
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        return 0.7f
+        swipeCallBack.swipeMap(viewHolder.adapterPosition, bottomSheetAdapter)
+        return 200f
     }
 }

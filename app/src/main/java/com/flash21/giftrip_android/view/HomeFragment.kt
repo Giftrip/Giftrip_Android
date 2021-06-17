@@ -16,6 +16,7 @@ import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
 import com.flash21.giftrip_android.model.bottomSheet.BottomSheetAdapter
 import com.flash21.giftrip_android.model.bottomSheet.TouchHelperCallBack
+import com.flash21.giftrip_android.model.spotList.SpotList
 
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
@@ -30,8 +31,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 * 최근 수정일: 2021.05.13.
 *
 * */
-
-class HomeFragment : Fragment(), OnMapReadyCallback {
+interface SwipeCallBack{
+    fun swipeMap(position : Int, bottomSheetAdapter: BottomSheetAdapter)
+}
+class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
 
     private lateinit var dataBinding: FragmentHomeBinding //HomeFragment DataBinding 객체
     private lateinit var viewModel: HomeFragmentViewModel //HomeFragment viewModel 객체
@@ -61,14 +64,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         dataBinding.bottomSheetLayout.bottomSheetRecyclerView.layoutManager = lm
         dataBinding.bottomSheetLayout.bottomSheetRecyclerView.setHasFixedSize(true)
         observeViewModel(bottomSheetAdapter)
-        val swipeHelperCallback = TouchHelperCallBack()
+        val swipeHelperCallback = TouchHelperCallBack(this, bottomSheetAdapter)
         val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
         itemTouchHelper.attachToRecyclerView(dataBinding.bottomSheetLayout.bottomSheetRecyclerView)
+
         mapView = dataBinding.map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+
         dataBinding.apply {
-//recyclerview touch helper 구현 필요
+
         }
 
         return dataBinding.root
@@ -79,9 +84,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             Log.d("Response data", "Response data : $it")
             bottomSheetAdapter.addItem(it)
             it.content.forEach { content ->
-                markers.add(MarkerOptions().apply {
-                    position(LatLng(content.lat, content.lon))
-                })
+//                markers.add(MarkerOptions().apply {
+//                    position(LatLng(content.lat, content.lon))
+//                })
             }
         })
     }
@@ -91,7 +96,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val latLng = LatLng(35.8489063202337, 128.55784713500177)
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7f))
         markers.forEach { marker ->
-            map.addMarker(marker)
+        //    map.addMarker(marker)
         }
     }
 
@@ -123,6 +128,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
     override fun onDestroy() {
         super.onDestroy()
         mapView.onDestroy()
+    }
+
+    override fun swipeMap(position: Int, bottomSheetAdapter: BottomSheetAdapter) {
+        Log.d("postion","${position.}")
+       // bottomSheetAdapter.getItemId(position)
     }
 
 }

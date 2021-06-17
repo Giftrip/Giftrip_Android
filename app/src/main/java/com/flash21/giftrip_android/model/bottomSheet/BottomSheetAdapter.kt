@@ -48,8 +48,9 @@ class BottomSheetAdapter(private val context: Context) :
             Glide.with(context)
                 .load(courseList.thumbnails.last())
                 .transform(CenterCrop(),RoundedCorners(30))
-                .override(350,350)
+                .override(300,300)
                 .into(spotImage)
+
         }
 
     }
