@@ -15,6 +15,7 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var dataBinding : ActivityAuthBinding
     private lateinit var viewModel : AuthActivityViewModel
     private lateinit var viewModelFactory : AuthActivityViewModelFactory
+    var phoneNumber : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

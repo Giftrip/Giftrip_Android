@@ -11,12 +11,36 @@
         <action
             android:id="@+id/action_navigation_auth_select_to_navigation_login"
             app:destination="@id/navigation_login" />
+        <action
+            android:id="@+id/action_navigation_auth_select_to_navigation_get_phoneNumber"
+            app:destination="@id/navigation_get_phoneNumber" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.flash21.giftrip_android.view.LoginFragment"
         android:label="LoginFragment" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_get_phoneNumber"
+        android:name="com.flash21.giftrip_android.view.GetPhoneNumberFragment"
+        android:label="GetPhoneNumberFragment" >
+        <action
+            android:id="@+id/action_navigation_get_phoneNumber_to_navigation_register"
+            app:destination="@id/navigation_register" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_register"
+        android:name="com.flash21.giftrip_android.view.RegisterFragment"
+        android:label="RegisterFragment" >
+
+        <argument
+            android:name="phoneNumber"
+            app:argType="string"
+            app:nullable="false"
+            android:defaultValue="Empty" />
     </fragment>
 
 </navigation>
