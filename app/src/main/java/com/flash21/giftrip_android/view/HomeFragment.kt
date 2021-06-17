@@ -131,7 +131,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
     }
 
     override fun swipeMap(position: Int, bottomSheetAdapter: BottomSheetAdapter) {
-        Log.d("postion","${position.}")
+     //   Log.d("postion","${position.}")
        // bottomSheetAdapter.getItemId(position)
     }
 
