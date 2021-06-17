@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 
 interface SpotListService {
-    @GET("/spot/getSpots?page=1&size=1&courseIdx=1")
+    @GET("/spot/getSpots?page=1&size=20&courseIdx=1")
     suspend fun gerCourseList(
         @Header("Authorization") type:String
     ):Response<SpotList>

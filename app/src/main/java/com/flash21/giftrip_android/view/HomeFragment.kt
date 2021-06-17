@@ -10,22 +10,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
-import com.flash21.giftrip_android.model.BottomSheetAdapter
-import com.flash21.giftrip_android.model.spotList.SpotContent
-import com.flash21.giftrip_android.model.spotList.SpotList
+import com.flash21.giftrip_android.model.bottomSheet.BottomSheetAdapter
+import com.flash21.giftrip_android.model.bottomSheet.TouchHelperCallBack
 
-import com.flash21.giftrip_android.network.RetrofitClient
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
-
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.OnMapReadyCallback
-import retrofit2.Retrofit
+import com.google.android.gms.maps.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 
 /*
@@ -35,14 +31,16 @@ import retrofit2.Retrofit
 *
 * */
 
-class HomeFragment : Fragment(), OnMapReadyCallback{
+class HomeFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var dataBinding : FragmentHomeBinding //HomeFragment DataBinding 객체
-    private lateinit var viewModel : HomeFragmentViewModel //HomeFragment viewModel 객체
-    private lateinit var viewModelFactory : HomeFragmentViewModelFactory //HomeFragment viewModel Factory 객체
+    private lateinit var dataBinding: FragmentHomeBinding //HomeFragment DataBinding 객체
+    private lateinit var viewModel: HomeFragmentViewModel //HomeFragment viewModel 객체
+    private lateinit var viewModelFactory: HomeFragmentViewModelFactory //HomeFragment viewModel Factory 객체
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
 
+
+    private val markers = ArrayList<MarkerOptions>()
 
     //onCreateView
     override fun onCreateView(
@@ -63,6 +61,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
         dataBinding.bottomSheetLayout.bottomSheetRecyclerView.layoutManager = lm
         dataBinding.bottomSheetLayout.bottomSheetRecyclerView.setHasFixedSize(true)
         observeViewModel(bottomSheetAdapter)
+        val swipeHelperCallback = TouchHelperCallBack()
+        val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
+        itemTouchHelper.attachToRecyclerView(dataBinding.bottomSheetLayout.bottomSheetRecyclerView)
         mapView = dataBinding.map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
@@ -72,16 +73,28 @@ class HomeFragment : Fragment(), OnMapReadyCallback{
 
         return dataBinding.root
     }
-    private fun observeViewModel(bottomSheetAdapter: BottomSheetAdapter){
+
+    private fun observeViewModel(bottomSheetAdapter: BottomSheetAdapter) {
         viewModel.data.observe(viewLifecycleOwner, Observer {
-            Log.d("Response data","Response data : $it")
+            Log.d("Response data", "Response data : $it")
             bottomSheetAdapter.addItem(it)
+            it.content.forEach { content ->
+                markers.add(MarkerOptions().apply {
+                    position(LatLng(content.lat, content.lon))
+                })
+            }
         })
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        val latLng = LatLng(35.8489063202337, 128.55784713500177)
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7f))
+        markers.forEach { marker ->
+            map.addMarker(marker)
+        }
     }
+
     override fun onStart() {
         super.onStart()
         mapView.onStart()
