@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,16 +14,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.flash21.giftrip_android.R
+import com.flash21.giftrip_android.databinding.BottomSheetBinding
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
 import com.flash21.giftrip_android.model.bottomSheet.BottomSheetAdapter
 import com.flash21.giftrip_android.model.bottomSheet.TouchHelperCallBack
-import com.flash21.giftrip_android.model.spotList.SpotList
-
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
 
 
 /*
@@ -31,10 +33,11 @@ import com.google.android.gms.maps.model.MarkerOptions
 * 최근 수정일: 2021.05.13.
 *
 * */
-interface SwipeCallBack{
-    fun swipeMap(position : Int, bottomSheetAdapter: BottomSheetAdapter)
+interface SwipeCallBack {
+    fun swipeMap(position: Int, bottomSheetAdapter: BottomSheetAdapter)
 }
-class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
+
+class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
 
     private lateinit var dataBinding: FragmentHomeBinding //HomeFragment DataBinding 객체
     private lateinit var viewModel: HomeFragmentViewModel //HomeFragment viewModel 객체
@@ -42,9 +45,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
 
-
     private val markers = ArrayList<MarkerOptions>()
-    private val cMarkers = ArrayList<MarkerOptions>()
+
+
     //onCreateView
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,8 +72,11 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
         itemTouchHelper.attachToRecyclerView(dataBinding.bottomSheetLayout.bottomSheetRecyclerView)
 
         mapView = dataBinding.map
+
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+        mapView.setPadding(0, 0, 0, 100)
+
 
         dataBinding.apply {
 
@@ -93,14 +99,24 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        val latLng = LatLng(35.8489063202337, 128.55784713500177)
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 7f))
+        map.setPadding(0,0,0,100)
+        val latLng = LatLng(35.8569652, 128.5885074)
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
         markers.forEach { marker ->
-            map.addMarker(marker)
+            map.addMarker(marker.title("xpt"))
         }
-        cMarkers.forEach { marker ->
-            map.addMarker(marker)
-        }
+
+    }
+
+    override fun swipeMap(position: Int, bottomSheetAdapter: BottomSheetAdapter) {
+        Log.d("position", "${bottomSheetAdapter.spotList[position].lat}")
+        val behavior = BottomSheetBehavior.from(
+            dataBinding.bottomSheetLayout.customBottomSheet
+
+        )
+            behavior.state = STATE_COLLAPSED
+
+        // bottomSheetAdapter.getItemId(position)
     }
 
     override fun onStart() {
@@ -133,10 +149,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback,SwipeCallBack {
         mapView.onDestroy()
     }
 
-    override fun swipeMap(position: Int, bottomSheetAdapter: BottomSheetAdapter) {
-        Log.d("position","${bottomSheetAdapter.spotList[position]}")
 
-       // bottomSheetAdapter.getItemId(position)
-    }
 
 }

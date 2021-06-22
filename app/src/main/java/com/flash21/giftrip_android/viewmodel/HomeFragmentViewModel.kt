@@ -12,23 +12,25 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 
-class  HomeFragmentViewModel : ViewModel() {
+class HomeFragmentViewModel : ViewModel() {
     private lateinit var retrofit: Retrofit
-    private lateinit var courseListService : SpotListService
+    private lateinit var courseListService: SpotListService
     var data = MutableLiveData<SpotList>()
-    private val token : String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZHgiOjEsImF1dGhUeXBlIjoiQUNDRVNTIiwiZXhwIjoxNjIzOTE2MzA0fQ.66XdIrx8-cE7AfBEJDRBYBeYPJFbgao3qG2FcEAsC8nuDQVlnD6-lt1QrthGNlsG"
-    fun getSpotList(){
+    private val token: String =
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZHgiOjEsImF1dGhUeXBlIjoiQUNDRVNTIiwiZXhwIjoxNjI0MzQxNjM2fQ.d3TAFZsLcjZ6iHOWQmfMaySmSw8npujd3F_3ju0zp-UL74aTYW8LNXdyVJrqxI6B"
+
+    fun getSpotList() {
         retrofit = RetrofitClient.instance.retrofitBuild
         courseListService = RetrofitClient.instance.courseList
         CoroutineScope(Dispatchers.IO).launch {
             val response = courseListService.gerCourseList("Bearer $token")
-            if (response.isSuccessful){
-                withContext(Dispatchers.Main){
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
                     data.value = response.body()
-                    Log.d("Response","Response : ${data.value}")
+                    Log.d("Response", "Response : ${data.value}")
                 }
-            }else{
-                Log.d("ResponseError","ResponseError : ${response.code()}")
+            } else {
+                Log.d("ResponseError", "ResponseError : ${response.code()}")
             }
         }
     }
