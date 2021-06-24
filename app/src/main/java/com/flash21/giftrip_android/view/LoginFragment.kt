@@ -15,6 +15,7 @@ import com.flash21.giftrip_android.databinding.FragmentLoginBinding
 import com.flash21.giftrip_android.encrypt.EncryptString
 import com.flash21.giftrip_android.model.logindata.LoginRequest
 import com.flash21.giftrip_android.model.logindata.LoginResponse
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.network.RetrofitClient
 import com.flash21.giftrip_android.viewmodel.LoginFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.LoginFragmentViewModelFactory
@@ -58,6 +59,7 @@ class LoginFragment : Fragment() {
                     response: Response<LoginResponse>
                 ) {
                     if (response.code() == 200){
+                        MyApplication.prefs.setString("AccessToken",response.body()?.accessToken!!.token.toString())
                         startActivity(Intent(activity,MainActivity::class.java))
                     }else{
                         Toast.makeText(activity, "아이디 또는 패스워드가 틀립니다.", Toast.LENGTH_SHORT).show()

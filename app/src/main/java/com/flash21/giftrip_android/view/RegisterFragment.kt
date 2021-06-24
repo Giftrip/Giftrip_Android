@@ -17,6 +17,7 @@ import com.flash21.giftrip_android.databinding.FragmentRegisterBinding
 import com.flash21.giftrip_android.encrypt.EncryptString
 import com.flash21.giftrip_android.model.registerData.RegisterRequest
 import com.flash21.giftrip_android.model.registerData.RegisterResponse
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.network.RetrofitClient
 import com.flash21.giftrip_android.viewmodel.RegisterFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.RegisterFragmentViewModelFactory
@@ -78,6 +79,7 @@ class RegisterFragment : Fragment() {
                 response: Response<RegisterResponse>
             ) {
                 if(response.code() == 200){
+                    MyApplication.prefs.setString("AccessToken",response.body()?.accessToken!!.token.toString())
                     startActivity(Intent(activity, MainActivity::class.java))
                 }else if (response.code() == 401){
                     Toast.makeText(activity, "인증번호 불일치", Toast.LENGTH_SHORT).show()
