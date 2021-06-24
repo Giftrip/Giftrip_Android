@@ -63,15 +63,19 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
 
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         dataBinding = FragmentHomeBinding.inflate(inflater, container, false)
+
         viewModelFactory = HomeFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
         viewModel.getSpotList()
+
         bottomSheetAdapter.notifyDataSetChanged()
         dataBinding.bottomSheetLayout.bottomSheetRecyclerView.adapter = bottomSheetAdapter
+
         val lm = LinearLayoutManager(requireContext())
         dataBinding.bottomSheetLayout.bottomSheetRecyclerView.layoutManager = lm
         dataBinding.bottomSheetLayout.bottomSheetRecyclerView.setHasFixedSize(true)
         observeViewModel(bottomSheetAdapter)
+
         val swipeHelperCallback = TouchHelperCallBack(this, bottomSheetAdapter)
         val itemTouchHelper = ItemTouchHelper(swipeHelperCallback)
         itemTouchHelper.attachToRecyclerView(dataBinding.bottomSheetLayout.bottomSheetRecyclerView)
