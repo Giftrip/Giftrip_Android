@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.flash21.giftrip_android.R
@@ -56,9 +57,12 @@ class LoginFragment : Fragment() {
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
-                    Log.d("TAG",response.code().toString())
-                    val intent = Intent(activity,MainActivity::class.java)
-                    startActivity(intent)
+                    if (response.code() == 200){
+                        val intent = Intent(activity,MainActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(activity, "아이디 또는 패스워드가 틀립니다.", Toast.LENGTH_SHORT).show()
+                    }
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
