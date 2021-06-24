@@ -43,34 +43,12 @@ class RegisterFragment : Fragment() {
             ViewModelProvider(this, viewModelFactory).get(RegisterFragmentViewModel::class.java)
         val phoneNumber = args.phoneNumber
 
-
         dataBinding.btnRegister.setOnClickListener {
-            val call: Call<RegisterResponse> = RetrofitClient.instance.postAuth.register(
-                RegisterRequest(
-                    dataBinding.etConfirmNumber.text.toString(),
-                    phoneNumber,
-                    EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!,
-                    dataBinding.etName.text.toString().replace(" ",""),
-                    dataBinding.btnBirth.text.toString()
-                )
-            )
-            call.enqueue(object : retrofit2.Callback<RegisterResponse> {
-                override fun onResponse(
-                    call: Call<RegisterResponse>,
-                    response: Response<RegisterResponse>
-                ) {
-                    if(response.code() == 200){
-                        startActivity(Intent(activity, MainActivity::class.java))
-                    }else{
-                        Log.d("TAG",response.code().toString())
-                    }
-                }
-
-                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                    Log.e("retrofit Error", t.toString())
-                }
-
-            })
+            if (dataBinding.etPw.text.toString() == dataBinding.etPwCheck.text.toString()){
+                postRegisteValue(phoneNumber)
+            }else{
+                Toast.makeText(activity, "비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show()
+            }
         }
         dataBinding.btnBirth.setOnClickListener {
             val cal =
@@ -83,5 +61,32 @@ class RegisterFragment : Fragment() {
         }
 
         return dataBinding.root
+    }
+    fun postRegisteValue(phoneNumber : String){
+        val call: Call<RegisterResponse> = RetrofitClient.instance.postAuth.register(
+            RegisterRequest(
+                dataBinding.etConfirmNumber.text.toString(),
+                phoneNumber,
+                EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!,
+                dataBinding.etName.text.toString().replace(" ",""),
+                dataBinding.btnBirth.text.toString()
+            )
+        )
+        call.enqueue(object : retrofit2.Callback<RegisterResponse> {
+            override fun onResponse(
+                call: Call<RegisterResponse>,
+                response: Response<RegisterResponse>
+            ) {
+                if(response.code() == 200){
+                    startActivity(Intent(activity, MainActivity::class.java))
+                }else if (response.code() == 401){
+                    Toast.makeText(activity, "인증번호 불일치", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                Log.e("retrofit Error", t.toString())
+            }
+        })
     }
 }

@@ -58,8 +58,7 @@ class LoginFragment : Fragment() {
                     response: Response<LoginResponse>
                 ) {
                     if (response.code() == 200){
-                        val intent = Intent(activity,MainActivity::class.java)
-                        startActivity(intent)
+                        startActivity(Intent(activity,MainActivity::class.java))
                     }else{
                         Toast.makeText(activity, "아이디 또는 패스워드가 틀립니다.", Toast.LENGTH_SHORT).show()
                     }
