@@ -39,25 +39,36 @@ class GetPhoneNumberFragment : Fragment() {
             ).get(GetPhoneNumberFragmentViewModel::class.java)
 
         dataBinding.btnNext.setOnClickListener {
-            val call: Call<ConfirmNumberResponse> =
-                RetrofitClient().postAuth.getConfirmNumber(dataBinding.etPhonenumber.text.toString())
-            call.enqueue(object : retrofit2.Callback<ConfirmNumberResponse> {
-                override fun onResponse(
-                    call: Call<ConfirmNumberResponse>,
-                    response: Response<ConfirmNumberResponse>
-                ) {
+            if (dataBinding.etPhonenumber.text.toString().length == 11){
+                getConfirmNumber()
+            }else{
+                Toast.makeText(activity, "올바르지 않은 전화번호 형식입니다.\n 010xxxxxxxx로 시도해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return dataBinding.root
+    }
+    fun getConfirmNumber(){
+        val call: Call<ConfirmNumberResponse> =
+            RetrofitClient().postAuth.getConfirmNumber(dataBinding.etPhonenumber.text.toString())
+        call.enqueue(object : retrofit2.Callback<ConfirmNumberResponse> {
+            override fun onResponse(
+                call: Call<ConfirmNumberResponse>,
+                response: Response<ConfirmNumberResponse>
+            ) {
+                if (response.code() == 200){
                     val action =
                         GetPhoneNumberFragmentDirections.actionNavigationGetPhoneNumberToNavigationRegister(
                             dataBinding.etPhonenumber.text.toString()
                         )
-                    it.findNavController().navigate(action)
+                    dataBinding.btnNext.findNavController().navigate(action)
+                }else{
+                    Toast.makeText(activity, "가입이 완료된 전화번호입니다.\n 다른번호로 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 }
+            }
 
-                override fun onFailure(call: Call<ConfirmNumberResponse>, t: Throwable) {
-                    Log.e("retrofit Error", t.toString())
-                }
-            })
-        }
-        return dataBinding.root
+            override fun onFailure(call: Call<ConfirmNumberResponse>, t: Throwable) {
+                Log.e("retrofit Error", t.toString())
+            }
+        })
     }
 }

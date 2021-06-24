@@ -1,5 +1,6 @@
 package com.flash21.giftrip_android.view
 
+import android.content.Intent
 import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.nfc.Tag
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.ActivityMainBinding
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.viewmodel.MainActivityViewModel
 import com.flash21.giftrip_android.viewmodel_factory.MainActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -58,6 +60,11 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         val nfcAdapter = NfcAdapter.getDefaultAdapter(applicationContext)
+
+        //로그인 확인
+        if (MyApplication.prefs.getString("AccessToken", "null") == "null"){
+            startActivity(Intent(this,AuthActivity::class.java))
+        }
 
         if (nfcAdapter == null) {
             // NFC 미지원단말

@@ -14,8 +14,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentRegisterBinding
+import com.flash21.giftrip_android.encrypt.EncryptString
 import com.flash21.giftrip_android.model.registerData.RegisterRequest
 import com.flash21.giftrip_android.model.registerData.RegisterResponse
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.network.RetrofitClient
 import com.flash21.giftrip_android.viewmodel.RegisterFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.RegisterFragmentViewModelFactory
@@ -42,30 +44,12 @@ class RegisterFragment : Fragment() {
             ViewModelProvider(this, viewModelFactory).get(RegisterFragmentViewModel::class.java)
         val phoneNumber = args.phoneNumber
 
-
         dataBinding.btnRegister.setOnClickListener {
-            val call: Call<RegisterResponse> = RetrofitClient.instance.postAuth.register(
-                RegisterRequest(
-                    dataBinding.etConfirmNumber.text.toString(),
-                    phoneNumber,
-                    dataBinding.etPw.text.toString(),
-                    dataBinding.etName.text.toString(),
-                    dataBinding.btnBirth.text.toString()
-                )
-            )
-            call.enqueue(object : retrofit2.Callback<RegisterResponse> {
-                override fun onResponse(
-                    call: Call<RegisterResponse>,
-                    response: Response<RegisterResponse>
-                ) {
-                    startActivity(Intent(activity, MainActivity::class.java))
-                }
-
-                override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                    Log.e("retrofit Error", t.toString())
-                }
-
-            })
+            if (dataBinding.etPw.text.toString() == dataBinding.etPwCheck.text.toString()){
+                postRegisteValue(phoneNumber)
+            }else{
+                Toast.makeText(activity, "비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show()
+            }
         }
         dataBinding.btnBirth.setOnClickListener {
             val cal =
@@ -78,5 +62,33 @@ class RegisterFragment : Fragment() {
         }
 
         return dataBinding.root
+    }
+    fun postRegisteValue(phoneNumber : String){
+        val call: Call<RegisterResponse> = RetrofitClient.instance.postAuth.register(
+            RegisterRequest(
+                dataBinding.etConfirmNumber.text.toString(),
+                phoneNumber,
+                EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!,
+                dataBinding.etName.text.toString().replace(" ",""),
+                dataBinding.btnBirth.text.toString()
+            )
+        )
+        call.enqueue(object : retrofit2.Callback<RegisterResponse> {
+            override fun onResponse(
+                call: Call<RegisterResponse>,
+                response: Response<RegisterResponse>
+            ) {
+                if(response.code() == 200){
+                    MyApplication.prefs.setString("AccessToken",response.body()?.accessToken!!.token.toString())
+                    startActivity(Intent(activity, MainActivity::class.java))
+                }else if (response.code() == 401){
+                    Toast.makeText(activity, "인증번호 불일치", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                Log.e("retrofit Error", t.toString())
+            }
+        })
     }
 }
