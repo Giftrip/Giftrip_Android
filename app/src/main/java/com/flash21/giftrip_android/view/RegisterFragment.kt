@@ -56,7 +56,7 @@ class RegisterFragment : Fragment() {
                 Calendar.getInstance()
             activity?.let { it1 ->
                 DatePickerDialog(it1, DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
-                    dataBinding.btnBirth.text = "$y-$m-$d"
+                    dataBinding.btnBirth.text = "$y-${m + 1}-$d"
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)).show()
             }
         }
