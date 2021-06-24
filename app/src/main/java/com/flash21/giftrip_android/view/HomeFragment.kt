@@ -86,11 +86,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
         mapView.setPadding(0, 0, 0, 100)
 
         dataBinding.apply {
-<<<<<<< Updated upstream
 
-=======
-        //recyclerview touch helper 구현 필요
->>>>>>> Stashed changes
         }
 
         return dataBinding.root
