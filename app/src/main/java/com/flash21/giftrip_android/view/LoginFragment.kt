@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.flash21.giftrip_android.R
@@ -56,8 +57,13 @@ class LoginFragment : Fragment() {
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
-                    val intent = Intent(activity,MainActivity::class.java)
-                    startActivity(intent)
+                    if (response.code() == 200){
+                        val intent = Intent(activity,MainActivity::class.java)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(activity, "", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
