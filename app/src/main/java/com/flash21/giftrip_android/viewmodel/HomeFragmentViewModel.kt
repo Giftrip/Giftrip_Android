@@ -16,14 +16,12 @@ class HomeFragmentViewModel : ViewModel() {
     private lateinit var retrofit: Retrofit
     private lateinit var courseListService: SpotListService
     var data = MutableLiveData<SpotList>()
-    private val token: String =
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZHgiOjEsImF1dGhUeXBlIjoiQUNDRVNTIiwiZXhwIjoxNjI0NDk5NzcxfQ.2R_JpWXpM54XB7yi4OLlt80zNtzKrW5EQrwf3_I7KahrvVTHotj-nUFW_1LXE5SL"
-
-    fun getSpotList() {
+ 
+    fun getSpotList(accessToken: String) {
         retrofit = RetrofitClient.instance.retrofitBuild
         courseListService = RetrofitClient.instance.courseList
         CoroutineScope(Dispatchers.IO).launch {
-            val response = courseListService.gerCourseList("Bearer $token")
+            val response = courseListService.gerCourseList("Bearer $accessToken")
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
                     data.value = response.body()

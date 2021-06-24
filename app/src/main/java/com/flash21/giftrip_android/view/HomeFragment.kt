@@ -24,6 +24,7 @@ import com.flash21.giftrip_android.databinding.BottomSheetBinding
 import com.flash21.giftrip_android.databinding.FragmentHomeBinding
 import com.flash21.giftrip_android.model.bottomSheet.BottomSheetAdapter
 import com.flash21.giftrip_android.model.bottomSheet.TouchHelperCallBack
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
 import com.google.android.gms.maps.*
@@ -60,12 +61,13 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
         savedInstanceState: Bundle?
     ): View {
         val bottomSheetAdapter = BottomSheetAdapter(requireContext())
-
+        val accessToken : String = MyApplication.prefs.getString("AccessToken","null")
+        Log.d("token",accessToken)
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         dataBinding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModelFactory = HomeFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeFragmentViewModel::class.java)
-        viewModel.getSpotList()
+        viewModel.getSpotList(accessToken)
         bottomSheetAdapter.notifyDataSetChanged()
         dataBinding.bottomSheetLayout.bottomSheetRecyclerView.adapter = bottomSheetAdapter
         val lm = LinearLayoutManager(requireContext())
