@@ -58,7 +58,21 @@ class RegisterFragment : Fragment() {
                     call: Call<RegisterResponse>,
                     response: Response<RegisterResponse>
                 ) {
-                    startActivity(Intent(activity, MainActivity::class.java))
+                    when(response.code()){
+                        200->{
+                            Log.d("serverLog", "token: ${response.body()?.accessToken}")
+                            startActivity(Intent(activity, MainActivity::class.java))
+                        }
+                        401->{
+                            Log.d("serverLog", "error: ${response.code()}")
+                        }
+                        409->{
+                            Log.d("serverLog", "이미 가입된 전화번호")
+                        }
+                        410->{
+                            Log.d("serverLog", "인증 시간 만료")
+                        }
+                    }
                 }
 
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {

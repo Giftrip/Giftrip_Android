@@ -56,8 +56,16 @@ class LoginFragment : Fragment() {
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
-                    val intent = Intent(activity,MainActivity::class.java)
-                    startActivity(intent)
+                    when(response.code()){
+                        200->{
+                            Log.d("serverLog", "token: ${response.body()?.accessToken}")
+                            val intent = Intent(activity,MainActivity::class.java)
+                            startActivity(intent)
+                        }
+                        401->{
+                            Log.d("serverLog", "error: ${response.message()}")
+                        }
+                    }
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {

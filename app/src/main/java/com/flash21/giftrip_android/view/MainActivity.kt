@@ -1,10 +1,12 @@
 package com.flash21.giftrip_android.view
 
+import android.content.Intent
 import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.Ndef
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -19,7 +21,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.nio.charset.Charset
 import kotlin.experimental.and
 import kotlin.properties.Delegates
-
 
 /*
 *
@@ -42,14 +43,17 @@ class MainActivity : AppCompatActivity() {
     private var writable by Delegates.notNull<Boolean>() //Writable
     private lateinit var type: String //Tag Type
     private lateinit var id: String //Tag Id
+    private lateinit var payloadStr: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //ViewModel
         dataBinding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
         viewModelFactory = MainActivityViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
 
+        //Bottom Navigation
         val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
 
         val navHostFragment =
@@ -57,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         navView.setupWithNavController(navController)
 
+        //Nfc
         val nfcAdapter = NfcAdapter.getDefaultAdapter(applicationContext)
 
         if (nfcAdapter == null) {
@@ -67,8 +72,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "NFC를 지원하는 단말기입니다.", Toast.LENGTH_SHORT).show()
         }
 
-        //tag variable reset
-        tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG)
+        tag = intent.getParcelableExtra(NfcAdapter.ACTION_TECH_DISCOVERED)
         if(tag != null){
             ndefTag = Ndef.get(tag)
             ndefSize = ndefTag.maxSize
@@ -76,8 +80,9 @@ class MainActivity : AppCompatActivity() {
             type = ndefTag.type
             id = byteArrayToHexString(tag?.id)
 
-            Toast.makeText(applicationContext, "data: $id", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "data: $tag", Toast.LENGTH_SHORT).show()
         }
+
     }
 
     override fun onResume() {
@@ -86,6 +91,11 @@ class MainActivity : AppCompatActivity() {
 
         for(i in 0..message.size){
             setReadTagData(message[0] as NdefMessage?)
+        }
+
+        with(viewModel) {
+            getPayloadStr(payloadStr)
+            getQuiz(payloadStr)
         }
 
     }
@@ -127,8 +137,9 @@ class MainActivity : AppCompatActivity() {
 
             val tnf = rec.tnf
             val type = String(rec.type)
-            val payloadStr = String(rec.payload, Charset.forName(textEncoding))
+            payloadStr = String(rec.payload, Charset.forName(textEncoding))
 
+            Toast.makeText(applicationContext, "payloadStr: $payloadStr", Toast.LENGTH_SHORT).show()
         }
     }
 
