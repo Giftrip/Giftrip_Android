@@ -48,8 +48,8 @@ class LoginFragment : Fragment() {
         dataBinding.btnLogin.setOnClickListener() {
             val call: Call<LoginResponse> = RetrofitClient.instance.postAuth.login(
                 LoginRequest(
-                    EncryptString().hashSHA256(dataBinding.etPhonenumber.text.toString())!!,
-                    dataBinding.etPw.text.toString()
+                    dataBinding.etPhonenumber.text.toString(),
+                    EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!
                 )
             )
             call.enqueue(object : retrofit2.Callback<LoginResponse>{
@@ -61,9 +61,8 @@ class LoginFragment : Fragment() {
                         val intent = Intent(activity,MainActivity::class.java)
                         startActivity(intent)
                     }else{
-                        Toast.makeText(activity, "", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "아이디 또는 패스워드가 틀립니다.", Toast.LENGTH_SHORT).show()
                     }
-
                 }
 
                 override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
