@@ -47,8 +47,8 @@ class LoginFragment : Fragment() {
         dataBinding.btnLogin.setOnClickListener() {
             val call: Call<LoginResponse> = RetrofitClient.instance.postAuth.login(
                 LoginRequest(
-                    EncryptString().hashSHA256(dataBinding.etPhonenumber.text.toString())!!,
-                    dataBinding.etPw.text.toString()
+                    dataBinding.etPhonenumber.text.toString(),
+                    EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!
                 )
             )
             call.enqueue(object : retrofit2.Callback<LoginResponse>{
@@ -56,6 +56,7 @@ class LoginFragment : Fragment() {
                     call: Call<LoginResponse>,
                     response: Response<LoginResponse>
                 ) {
+                    Log.d("TAG",response.code().toString())
                     val intent = Intent(activity,MainActivity::class.java)
                     startActivity(intent)
                 }

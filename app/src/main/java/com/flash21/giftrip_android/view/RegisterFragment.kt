@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentRegisterBinding
+import com.flash21.giftrip_android.encrypt.EncryptString
 import com.flash21.giftrip_android.model.registerData.RegisterRequest
 import com.flash21.giftrip_android.model.registerData.RegisterResponse
 import com.flash21.giftrip_android.network.RetrofitClient
@@ -48,8 +49,8 @@ class RegisterFragment : Fragment() {
                 RegisterRequest(
                     dataBinding.etConfirmNumber.text.toString(),
                     phoneNumber,
-                    dataBinding.etPw.text.toString(),
-                    dataBinding.etName.text.toString(),
+                    EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!,
+                    dataBinding.etName.text.toString().replace(" ",""),
                     dataBinding.btnBirth.text.toString()
                 )
             )
@@ -58,7 +59,11 @@ class RegisterFragment : Fragment() {
                     call: Call<RegisterResponse>,
                     response: Response<RegisterResponse>
                 ) {
-                    startActivity(Intent(activity, MainActivity::class.java))
+                    if(response.code() == 200){
+                        startActivity(Intent(activity, MainActivity::class.java))
+                    }else{
+                        Log.d("TAG",response.code().toString())
+                    }
                 }
 
                 override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
