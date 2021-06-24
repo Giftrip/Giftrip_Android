@@ -143,7 +143,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
             .override(100,100)
             .into(frameImage)
         frameTitle.text = bottomSheetAdapter.spotList[position].title
-        frameDescription.text = bottomSheetAdapter.spotList[position].title
+        frameDescription.text = bottomSheetAdapter.spotList[position].description
         frameAddress.text = bottomSheetAdapter.spotList[position].address
     }
     override fun onStart() {
