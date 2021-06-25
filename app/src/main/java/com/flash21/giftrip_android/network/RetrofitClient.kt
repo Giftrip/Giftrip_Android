@@ -1,5 +1,6 @@
 package com.flash21.giftrip_android.network
 
+import com.flash21.giftrip_android.model.notification.network.NotificationService
 import com.flash21.giftrip_android.model.spotList.SpotListService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,6 +15,7 @@ class RetrofitClient {
 
     val postAuth : PostAuthAPI = retrofitBuild.create(PostAuthAPI::class.java)
     val courseList : SpotListService = retrofitBuild.create(SpotListService::class.java)
+    val notificationList : NotificationService = retrofitBuild.create(NotificationService::class.java)
 
     companion object {
         val instance = RetrofitClient()

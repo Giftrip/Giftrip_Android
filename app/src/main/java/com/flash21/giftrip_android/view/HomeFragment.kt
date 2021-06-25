@@ -62,7 +62,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
     ): View {
         val bottomSheetAdapter = BottomSheetAdapter(requireContext())
         val accessToken : String = MyApplication.prefs.getString("AccessToken","null")
-        Log.d("token",accessToken)
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         dataBinding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModelFactory = HomeFragmentViewModelFactory()

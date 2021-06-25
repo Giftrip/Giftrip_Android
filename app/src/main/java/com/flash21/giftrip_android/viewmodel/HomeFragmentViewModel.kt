@@ -16,7 +16,7 @@ class HomeFragmentViewModel : ViewModel() {
     private lateinit var retrofit: Retrofit
     private lateinit var courseListService: SpotListService
     var data = MutableLiveData<SpotList>()
- 
+
     fun getSpotList(accessToken: String) {
         retrofit = RetrofitClient.instance.retrofitBuild
         courseListService = RetrofitClient.instance.courseList
