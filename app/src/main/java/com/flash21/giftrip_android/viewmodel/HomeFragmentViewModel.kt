@@ -21,7 +21,7 @@ class HomeFragmentViewModel : ViewModel() {
         retrofit = RetrofitClient.instance.retrofitBuild
         courseListService = RetrofitClient.instance.courseList
         CoroutineScope(Dispatchers.IO).launch {
-            val response = courseListService.gerCourseList("Bearer $accessToken")
+            val response = courseListService.gerCourseList("Bearer $accessToken",1)
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
                     data.value = response.body()

@@ -8,13 +8,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DecodeFormat
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -52,7 +55,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
     private lateinit var mapView: MapView
     private lateinit var map: GoogleMap
     private val markers = ArrayList<MarkerOptions>()
-
+    private var page : Int = 0
 
     //onCreateView
     override fun onCreateView(
@@ -81,6 +84,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
         dataBinding.fragmentHomeLayout.setOnClickListener {
             dataBinding.spotInformationLayout.visibility = View.GONE
         }
+        dataBinding.bottomSheetLayout.bottomSheetRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val item = (dataBinding.bottomSheetLayout.bottomSheetRecyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val total = dataBinding.bottomSheetLayout.bottomSheetRecyclerView.adapter?.itemCount
+                if(item + 1 == total){
+                    Log.d("페이징 구현 해","페이징 구현 해")
+                }
+            }
+        })
 
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
@@ -146,6 +159,10 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
         frameTitle.text = bottomSheetAdapter.spotList[position].title
         frameDescription.text = bottomSheetAdapter.spotList[position].description
         frameAddress.text = bottomSheetAdapter.spotList[position].address
+    }
+    private fun getPage(): Int {
+        page++
+        return page
     }
     override fun onStart() {
         super.onStart()
