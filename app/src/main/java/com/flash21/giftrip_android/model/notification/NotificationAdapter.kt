@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.flash21.giftrip_android.R
+import com.flash21.giftrip_android.model.bottomSheet.BottomSheetAdapter
 import com.flash21.giftrip_android.model.spotList.SpotContent
 import com.flash21.giftrip_android.model.spotList.SpotList
 
@@ -22,13 +23,13 @@ class NotificationAdapter(private val context: Context) :
         return notificationList.size
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationAdapter.Holder {
         val view = LayoutInflater.from(context)
             .inflate(R.layout.notification_recyclerview_item, parent, false)
         return Holder(view)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: NotificationAdapter.Holder, position: Int) {
 
         holder.bind(notificationList[position], position)
     }

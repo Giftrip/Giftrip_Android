@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentNotificationBinding
 import com.flash21.giftrip_android.model.bottomSheet.BottomSheetAdapter
+import com.flash21.giftrip_android.model.notification.NotificationAdapter
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.viewmodel.NotificationFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.NotificationFragmentViewModelFactory
 import com.google.android.gms.maps.model.LatLng
@@ -35,16 +38,24 @@ class NotificationFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val notificationAdapter = NotificationAdapter(requireContext())
+        val accessToken : String = MyApplication.prefs.getString("AccessToken","null")
+        val lm = LinearLayoutManager(requireContext())
         dataBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_notification, container, false)
         viewModelFactory = NotificationFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(NotificationFragmentViewModel::class.java)
-        observeViewModel()
+        notificationAdapter.notifyDataSetChanged()
+        dataBinding.notificationRecyclerView.adapter = notificationAdapter
+        dataBinding.notificationRecyclerView.layoutManager = lm
+        dataBinding.notificationRecyclerView.setHasFixedSize(true)
+        viewModel.getNotificationList(accessToken)
+        observeViewModel(notificationAdapter)
         return dataBinding.root
     }
-    private fun observeViewModel() {
+    private fun observeViewModel(notificationAdapter: NotificationAdapter) {
         viewModel.data.observe(viewLifecycleOwner, Observer {
-            Log.d("Response data", "Response data : $it")
-
+            Log.d("Notification data", "Notification data : $it")
+            notificationAdapter.addItem(it)
         })
     }
 }
