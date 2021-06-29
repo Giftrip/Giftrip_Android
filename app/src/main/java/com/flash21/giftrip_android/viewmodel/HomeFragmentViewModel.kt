@@ -3,6 +3,7 @@ package com.flash21.giftrip_android.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.model.spotList.SpotList
 import com.flash21.giftrip_android.model.spotList.SpotListService
 import com.flash21.giftrip_android.network.RetrofitClient
@@ -16,9 +17,7 @@ class HomeFragmentViewModel : ViewModel() {
     private lateinit var retrofit: Retrofit
     private lateinit var courseListService: SpotListService
     var data = MutableLiveData<SpotList>()
-    private val token: String =
-        "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzM4NCJ9.eyJpZHgiOjEsImF1dGhUeXBlIjoiQUNDRVNTIiwiZXhwIjoxNjI0NTAzMjg5fQ.DA6yzjqdcAzJ3_DtknNesSA9PsiRpCrTgID9HgksoMOpobzBmLygJfDAzI-Fk2dJ"
-
+    private val token: String = "Bearer ${MyApplication.prefs.getString("AccessToken", "null")}"
     fun getSpotList() {
         retrofit = RetrofitClient.instance.retrofitBuild
         courseListService = RetrofitClient.instance.courseList

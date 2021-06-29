@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -31,6 +33,12 @@ class BottomSheetAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
         holder.bind(spotList[position], position)
+
+        holder.itemView.setOnClickListener {
+            val navController: NavController = Navigation.findNavController(it)
+            navController.navigate(R.id.action_navigation_home_to_detailSpotFragment)
+        }
+
     }
 
     inner class Holder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {

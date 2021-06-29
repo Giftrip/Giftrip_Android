@@ -79,7 +79,7 @@ class RegisterFragment : Fragment() {
                 response: Response<RegisterResponse>
             ) {
                 if(response.code() == 200){
-                    MyApplication.prefs.setString("AccessToken",response.body()?.accessToken!!.token.toString())
+                    MyApplication.prefs.setString("AccessToken", response.body()?.accessToken!!.token.toString())
                     startActivity(Intent(activity, MainActivity::class.java))
                 }else if (response.code() == 401){
                     Toast.makeText(activity, "인증번호 불일치", Toast.LENGTH_SHORT).show()

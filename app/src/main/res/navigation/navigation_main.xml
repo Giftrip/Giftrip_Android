@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_finisher"
             app:destination="@id/navigation_finisher" />
+        <action
+            android:id="@+id/action_navigation_home_to_detailSpotFragment"
+            app:destination="@id/detailSpotFragment" />
     </fragment>
 
     <fragment
@@ -44,5 +47,14 @@
         android:id="@+id/navigation_setting"
         android:name="com.flash21.giftrip_android.view.SettingFragment"
         android:label="SettingFragment" />
+
+    <fragment
+        android:id="@+id/detailSpotFragment"
+        android:name="com.flash21.giftrip_android.view.DetailSpotFragment"
+        android:label="DetailSpotFragment" >
+        <action
+            android:id="@+id/action_detailSpotFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
 </navigation>

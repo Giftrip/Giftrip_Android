@@ -3,9 +3,12 @@ package com.flash21.giftrip_android.view
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
 import android.nfc.NfcManager
+import android.nfc.Tag
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.Editable
@@ -13,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -28,10 +32,6 @@ class NfcDialogFragment : BottomSheetDialogFragment() {
     private lateinit var viewModel: NfcDialogFragmentViewModel
     private lateinit var viewModelFactory: NfcDialogFragmentViewModelFactory
 
-    private var adapter: NfcAdapter? = null
-
-    private var tagData = ""
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,10 +42,7 @@ class NfcDialogFragment : BottomSheetDialogFragment() {
         viewModelFactory = NfcDialogFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(NfcDialogFragmentViewModel::class.java)
 
-        dataBinding.apply {
-
-
-        }
+        dataBinding.apply {}
 
         return dataBinding.root
     }
