@@ -68,7 +68,7 @@ class RegisterFragment : Fragment() {
             RegisterRequest(
                 dataBinding.etConfirmNumber.text.toString(),
                 phoneNumber,
-                EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!,
+                EncryptString().hashSHA512(dataBinding.etPw.text.toString())!!,
                 dataBinding.etName.text.toString().replace(" ",""),
                 dataBinding.btnBirth.text.toString()
             )

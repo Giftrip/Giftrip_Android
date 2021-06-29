@@ -62,11 +62,6 @@ class MainActivity : AppCompatActivity() {
 
         val nfcAdapter = NfcAdapter.getDefaultAdapter(applicationContext)
 
-        //로그인 확인
-        if (MyApplication.prefs.getString("AccessToken", "null") == "null"){
-            startActivity(Intent(this,AuthActivity::class.java))
-        }
-
         if (nfcAdapter == null) {
             // NFC 미지원단말
             Toast.makeText(applicationContext, "NFC를 지원하지 않는 단말기입니다.", Toast.LENGTH_SHORT).show()
