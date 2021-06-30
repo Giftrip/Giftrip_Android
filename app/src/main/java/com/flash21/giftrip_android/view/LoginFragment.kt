@@ -29,7 +29,6 @@ import retrofit2.Response
 *
 * */
 
-
 class LoginFragment : Fragment() {
 
     private lateinit var dataBinding: FragmentLoginBinding
@@ -47,7 +46,7 @@ class LoginFragment : Fragment() {
             ViewModelProvider(this, viewModelFactory).get(LoginFragmentViewModel::class.java)
 
         dataBinding.btnLogin.setOnClickListener() {
-            Toast.makeText(activity, EncryptString().hashSHA512(dataBinding.etPw.text.toString())!!, Toast.LENGTH_SHORT).show()
+            Log.d("TAG", EncryptString().hashSHA512(dataBinding.etPw.text.toString())!!)
             val call: Call<LoginResponse> = RetrofitClient.instance.postAuth.login(
                 LoginRequest(
                     dataBinding.etPhonenumber.text.toString(),
@@ -61,6 +60,7 @@ class LoginFragment : Fragment() {
                 ) {
                     if (response.code() == 200){
                         MyApplication.prefs.setString("AccessToken",response.body()?.accessToken!!.token.toString())
+                        Log.d("TAG",MyApplication.prefs.getString("AccessToken","null"))
                         startActivity(Intent(activity,MainActivity::class.java))
                     }else{
                         Toast.makeText(activity, "아이디 또는 패스워드가 틀립니다.", Toast.LENGTH_SHORT).show()
@@ -72,7 +72,6 @@ class LoginFragment : Fragment() {
                 }
             })
         }
-
         return dataBinding.root
     }
 }
