@@ -1,6 +1,7 @@
 package com.flash21.giftrip_android.model.bottomSheet
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.model.spotList.SpotContent
 import com.flash21.giftrip_android.model.spotList.SpotList
+import com.flash21.giftrip_android.view.MainActivity
+import com.flash21.giftrip_android.view.NfcActivity
 
 class BottomSheetAdapter(private val context: Context) :
     RecyclerView.Adapter<BottomSheetAdapter.Holder>() {
@@ -35,8 +38,7 @@ class BottomSheetAdapter(private val context: Context) :
         holder.bind(spotList[position], position)
 
         holder.itemView.setOnClickListener {
-            val navController: NavController = Navigation.findNavController(it)
-            navController.navigate(R.id.action_navigation_home_to_detailSpotFragment)
+            context.startActivity(Intent(context, NfcActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
         }
 
     }

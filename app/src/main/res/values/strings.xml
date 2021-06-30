@@ -9,5 +9,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="watched_map">지도 보기</string>
-    <string name="nfc_data">NFC 인식</string>
+    <string name="nfc_data">NFC 카드를 휴대전화 뒷면에 가까이 대세요</string>
+    <string name="spotimage">SpotImage</string>
 </resources>

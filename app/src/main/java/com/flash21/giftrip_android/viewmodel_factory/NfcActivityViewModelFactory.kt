@@ -3,13 +3,13 @@ package com.flash21.giftrip_android.viewmodel_factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.flash21.giftrip_android.viewmodel.MainActivityViewModel
-import com.flash21.giftrip_android.viewmodel.NfcDialogFragmentViewModel
+import com.flash21.giftrip_android.viewmodel.NfcActivityViewModel
 
-class NfcDialogFragmentViewModelFactory : ViewModelProvider.Factory {
+class NfcActivityViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(NfcDialogFragmentViewModel::class.java)){
-            return NfcDialogFragmentViewModel() as T
+        if (modelClass.isAssignableFrom(NfcActivityViewModel::class.java)){
+            return NfcActivityViewModel() as T
         }
         throw IllegalArgumentException("Unknown View Model Class")
     }
