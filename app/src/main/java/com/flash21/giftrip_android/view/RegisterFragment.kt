@@ -56,7 +56,7 @@ class RegisterFragment : Fragment() {
                 Calendar.getInstance()
             activity?.let { it1 ->
                 DatePickerDialog(it1, DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
-                    dataBinding.btnBirth.text = "$y-$m-$d"
+                    dataBinding.btnBirth.text = "$y-${m + 1}-$d"
                 }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)).show()
             }
         }
@@ -68,7 +68,7 @@ class RegisterFragment : Fragment() {
             RegisterRequest(
                 dataBinding.etConfirmNumber.text.toString(),
                 phoneNumber,
-                EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!,
+                EncryptString().hashSHA512(dataBinding.etPw.text.toString())!!,
                 dataBinding.etName.text.toString().replace(" ",""),
                 dataBinding.btnBirth.text.toString()
             )

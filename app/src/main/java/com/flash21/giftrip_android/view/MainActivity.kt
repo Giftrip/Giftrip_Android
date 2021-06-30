@@ -6,6 +6,7 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.Ndef
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -60,11 +61,6 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         val nfcAdapter = NfcAdapter.getDefaultAdapter(applicationContext)
-
-        //로그인 확인
-        if (MyApplication.prefs.getString("AccessToken", "null") == "null"){
-            startActivity(Intent(this,AuthActivity::class.java))
-        }
 
         if (nfcAdapter == null) {
             // NFC 미지원단말
