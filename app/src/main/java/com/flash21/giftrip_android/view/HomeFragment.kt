@@ -32,6 +32,7 @@ import com.flash21.giftrip_android.viewmodel.HomeFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.HomeFragmentViewModelFactory
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
@@ -113,6 +114,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
             it.content.forEach { content ->
                 markers.add(MarkerOptions().apply {
                     position(LatLng(content.lat, content.lon))
+                    title("테스트")
                 })
             }
         })
@@ -129,13 +131,14 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
         val latLng = LatLng(35.8569652, 128.5885074)
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
         markers.forEach { marker ->
-            map.addMarker(marker.title("xpt"))
+            map.addMarker(marker.title(markers[page].title))
         }
+
 
     }
 
     override fun swipeMap(position: Int, bottomSheetAdapter: BottomSheetAdapter) {
-        Log.d("position", "${bottomSheetAdapter.spotList[position].lat}")
+
         controlModal(position,bottomSheetAdapter)
     }
 
@@ -148,6 +151,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
         val behavior = BottomSheetBehavior.from(
             dataBinding.bottomSheetLayout.customBottomSheet
         )
+        val location = LatLng(bottomSheetAdapter.spotList[position].lat,bottomSheetAdapter.spotList[position].lon)
         behavior.state = STATE_COLLAPSED
         frame?.visibility = View.VISIBLE
         Glide.with(requireContext())
@@ -159,6 +163,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback, SwipeCallBack {
         frameTitle.text = bottomSheetAdapter.spotList[position].title
         frameDescription.text = bottomSheetAdapter.spotList[position].description
         frameAddress.text = bottomSheetAdapter.spotList[position].address
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 15f))
     }
     private fun getPage(): Int {
         page++
