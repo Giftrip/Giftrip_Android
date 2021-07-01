@@ -47,10 +47,11 @@ class LoginFragment : Fragment() {
             ViewModelProvider(this, viewModelFactory).get(LoginFragmentViewModel::class.java)
 
         dataBinding.btnLogin.setOnClickListener() {
+            Toast.makeText(activity, EncryptString().hashSHA512(dataBinding.etPw.text.toString())!!, Toast.LENGTH_SHORT).show()
             val call: Call<LoginResponse> = RetrofitClient.instance.postAuth.login(
                 LoginRequest(
                     dataBinding.etPhonenumber.text.toString(),
-                    EncryptString().hashSHA256(dataBinding.etPw.text.toString())!!
+                    EncryptString().hashSHA512(dataBinding.etPw.text.toString())!!
                 )
             )
             call.enqueue(object : retrofit2.Callback<LoginResponse>{

@@ -1,5 +1,6 @@
 package com.flash21.giftrip_android.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.flash21.giftrip_android.R
 import com.flash21.giftrip_android.databinding.FragmentSettingBinding
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.viewmodel.SettingFragmentViewModel
 import com.flash21.giftrip_android.viewmodel_factory.SettingFragmentViewModelFactory
 
@@ -35,6 +37,10 @@ class SettingFragment : Fragment(){
         viewModelFactory = SettingFragmentViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(SettingFragmentViewModel::class.java)
 
+        dataBinding.btnLogout.setOnClickListener(){
+            MyApplication.prefs.setString("AccessToken","null")
+            startActivity(Intent(activity,AuthActivity::class.java))
+        }
         return dataBinding.root
     }
 }
