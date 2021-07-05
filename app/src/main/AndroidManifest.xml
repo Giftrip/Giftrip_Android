@@ -27,11 +27,11 @@
         tools:ignore="RtlEnabled"
         tools:targetApi="m">
 
-        <activity android:name=".view.NfcActivity">
+        <activity android:name=".view.SpotActivity">
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.PREFERENCE" />
 
                 <data android:mimeType="text/plain" />
             </intent-filter>

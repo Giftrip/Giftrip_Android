@@ -10,16 +10,16 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.flash21.giftrip_android.R
-import com.flash21.giftrip_android.databinding.ActivityNfcBinding
+import com.flash21.giftrip_android.databinding.ActivitySpotBinding
 import com.flash21.giftrip_android.viewmodel.NfcActivityViewModel
 import com.flash21.giftrip_android.viewmodel_factory.NfcActivityViewModelFactory
 import java.nio.charset.Charset
 import kotlin.experimental.and
 import kotlin.properties.Delegates
 
-class NfcActivity : AppCompatActivity() {
+class SpotActivity : AppCompatActivity() {
 
-    private lateinit var dataBinding: ActivityNfcBinding
+    private lateinit var dataBinding: ActivitySpotBinding
     private lateinit var viewModel: NfcActivityViewModel
     private lateinit var viewModelFactory: NfcActivityViewModelFactory
 
@@ -30,12 +30,12 @@ class NfcActivity : AppCompatActivity() {
     private var writable by Delegates.notNull<Boolean>() //Writable
     private lateinit var type: String //Tag Type
     private lateinit var id: String //Tag Id
-    private var payloadStr: String = ""
+    private var payloadStr: String = "" //payload String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dataBinding = DataBindingUtil.setContentView(this@NfcActivity, R.layout.activity_nfc)
+        dataBinding = DataBindingUtil.setContentView(this@SpotActivity, R.layout.activity_spot)
         viewModelFactory = NfcActivityViewModelFactory()
         viewModel = ViewModelProvider(this, viewModelFactory).get(NfcActivityViewModel::class.java)
 
@@ -96,6 +96,7 @@ class NfcActivity : AppCompatActivity() {
         return data
     }
 
+    //readTagData
     private fun setReadTagData(ndefMessage: NdefMessage?) {
 
         if (ndefMessage == null) {
@@ -123,4 +124,5 @@ class NfcActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "payloadStr: $payloadStr", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

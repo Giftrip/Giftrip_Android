@@ -8,17 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.flash21.giftrip_android.R
+import com.flash21.giftrip_android.model.nfc_data.SpotResponse
+import com.flash21.giftrip_android.model.sharedPreference.MyApplication
 import com.flash21.giftrip_android.model.spotList.SpotContent
 import com.flash21.giftrip_android.model.spotList.SpotList
-import com.flash21.giftrip_android.view.MainActivity
-import com.flash21.giftrip_android.view.NfcActivity
+import com.flash21.giftrip_android.network.RetrofitClient
+import com.flash21.giftrip_android.view.SpotActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Response
 
 class BottomSheetAdapter(private val context: Context) :
     RecyclerView.Adapter<BottomSheetAdapter.Holder>() {
@@ -38,7 +43,40 @@ class BottomSheetAdapter(private val context: Context) :
         holder.bind(spotList[position], position)
 
         holder.itemView.setOnClickListener {
-            context.startActivity(Intent(context, NfcActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val call: Call<SpotResponse> = RetrofitClient.instance.nfcAPI.getSpot(
+                    "Bearer ${MyApplication.prefs.getString("AccessToken", "null")}",
+                    position
+                )
+
+                call.enqueue(object : retrofit2.Callback<SpotResponse>{
+                    override fun onResponse(
+                        call: Call<SpotResponse>,
+                        response: Response<SpotResponse>
+                    ) {
+                        when(response.code()){
+                            200->{
+                                val intent = Intent(context, SpotActivity::class.java)
+                                intent.putExtra("address", response.body()!!.address)
+                                intent.putExtra("description", response.body()!!.description)
+                                intent.putExtra("lon", response.body()!!.lon)
+                                intent.putExtra("completed", response.body()!!.completed)
+                                intent.putExtra("courseIdx", response.body()!!.courseIdx)
+                                intent.putExtra("thumbnails", response.body()!!.thumbnails)
+                                intent.putExtra("title", response.body()!!.title)
+                                intent.putExtra("idx", response.body()!!.idx)
+                                intent.putExtra("lat", response.body()!!.lat)
+                                context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                            }
+                        }
+                    }
+
+                    override fun onFailure(call: Call<SpotResponse>, t: Throwable) {
+
+                    }
+                })
+            }
         }
 
     }

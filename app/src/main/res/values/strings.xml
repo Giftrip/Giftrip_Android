@@ -11,4 +11,5 @@
     <string name="watched_map">지도 보기</string>
     <string name="nfc_data">NFC 카드를 휴대전화 뒷면에 가까이 대세요</string>
     <string name="spotimage">SpotImage</string>
+    <string name="feedimage">feedImage</string>
 </resources>

@@ -1,15 +1,8 @@
 package com.flash21.giftrip_android.view
 
 import android.app.PendingIntent
-import android.content.Intent
-import android.net.Uri
-import android.nfc.NdefMessage
 import android.nfc.NfcAdapter
-import android.nfc.Tag
-import android.nfc.tech.Ndef
 import android.os.Bundle
-import android.os.Parcelable
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -21,9 +14,6 @@ import com.flash21.giftrip_android.databinding.ActivityMainBinding
 import com.flash21.giftrip_android.viewmodel.MainActivityViewModel
 import com.flash21.giftrip_android.viewmodel_factory.MainActivityViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.nio.charset.Charset
-import kotlin.experimental.and
-import kotlin.properties.Delegates
 
 /*
 *
